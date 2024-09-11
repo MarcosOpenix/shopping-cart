@@ -1,0 +1,16 @@
+export enum PRODUCT_CATEGORY {
+  ELECTRONICS = 'Electronics',
+  CLOTHING = 'Clothing',
+  BOOKS = 'Books',
+  FURNITURE = 'Furniture',
+  BEAUTY = 'Beauty',
+  TOYS = 'Toys',
+  SPORTS = 'Sports',
+  GROCERY = 'Grocery',
+  HOME_APPLIANCES = 'Home Appliances',
+  AUTOMOTIVE = 'Automotive',
+  JEWELRY = 'Jewelry',
+  PET_SUPPLIES = 'Pet Supplies',
+  OFFICE_SUPPLIES = 'Office Supplies',
+  GARDEN = 'Garden',
+}
