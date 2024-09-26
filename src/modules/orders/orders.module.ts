@@ -3,6 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrdersEntity } from './entities/orders.entity';
 import { OrderItemsEntity } from './entities/order-items.entity';
 import { TransactionsEntity } from './entities/transactions.entity';
+import { OrdersController } from './controllers/orders.controller';
+import { OrdersService } from './services/orders.service';
 
 @Module({
   imports: [
@@ -12,5 +14,7 @@ import { TransactionsEntity } from './entities/transactions.entity';
       TransactionsEntity,
     ]),
   ],
+  controllers: [OrdersController],
+  providers: [OrdersService],
 })
 export class OrdersModule {}

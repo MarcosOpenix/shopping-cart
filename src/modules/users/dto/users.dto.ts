@@ -5,7 +5,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { LEVEL_AUTHORIRY } from 'src/constants/levelAuthority';
+import { LEVEL_AUTHORITY } from 'src/constants/levelAuthority';
 
 export class UserDTO {
   @IsNotEmpty()
@@ -37,6 +37,6 @@ export class UserDTO {
   activated: boolean;
 
   @IsOptional()
-  @IsEnum(LEVEL_AUTHORIRY)
-  levelAuthority: LEVEL_AUTHORIRY;
+  @IsEnum(LEVEL_AUTHORITY)
+  levelAuthority: LEVEL_AUTHORITY;
 }

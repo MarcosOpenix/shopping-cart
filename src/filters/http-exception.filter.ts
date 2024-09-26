@@ -3,8 +3,33 @@ import {
   Catch,
   ArgumentsHost,
   HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { QueryFailedError } from 'typeorm';
+
+const getFormatedError = (exception: any, status: HttpStatus, url: string) => {
+  const exceptionResponse = exception.getResponse();
+  let errorResponse = {
+    statusCode: status,
+    timestamp: new Date().toISOString(),
+    path: url,
+    message: exceptionResponse,
+  };
+
+  switch (true) {
+    case exception instanceof QueryFailedError:
+      errorResponse.message = 'Hubo un error durante el proceso.';
+      errorResponse.statusCode = HttpStatus.CONFLICT;
+      return errorResponse;
+    default:
+      if (exceptionResponse instanceof Object) {
+        errorResponse.message = exceptionResponse.message;
+        return errorResponse;
+      }
+      return errorResponse;
+  }
+};
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -13,13 +38,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
     const status = exception.getStatus();
-
-    console.error('exception in ', `url -> ${request.url}`);
-    response.status(status).json({
-      statusCode: status,
-      timestamp: new Date().toISOString(),
-
-      path: request.url,
-    });
+    const formatedError = getFormatedError(exception, status, request.url);
+    response.status(status).json(formatedError);
   }
 }
